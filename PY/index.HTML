@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aoi募資網頁</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e258a6;
+      background-image: url('https://www.transparenttextures.com/patterns/always-grey.png');
+      background-repeat: repeat;
+      color: #333;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ff9bd3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      z-index: 1000;
+    }
+
+    html {
+    scroll-behavior: smooth;
+    }
+
+    .logo {
+      height: 50px;
+    }
+
+    .social-icons a {
+      color: white;
+      margin-left: 20px;
+      font-size: 30px;
+      text-decoration: none;
+    }
+
+    .hamburger {
+      font-size: 30px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+      margin-left: 16px;
+    }
+
+    .menu {
+      position: absolute;
+      top: 85px;
+      right: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .menu a {
+      padding: 15px;
+      font-size: 18px;
+      color: #f451b7;
+      text-decoration: none;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .menu a:last-child {
+      border-bottom: none;
+    }
+
+    .menu a:hover {
+      font-size: 20px;
+      background-color: #ffe066;
+    }
+
+    .title {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .floating-img {
+      position: absolute;
+      will-change: transform;
+      transition: transform 0.3s ease-out;
+      z-index: 0;
+    }
+
+    .content-section {
+      width: 90%;
+      max-width: 960px;
+      margin: 80px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+      scroll-margin-top: 130px;
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: yellow;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    /* SVG 愛心容器 */
+    .heart-badge {
+      position: absolute;
+      top: 350px;
+      left: 68%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 180px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .heart-badge svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .heart-text {
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      font-size: 28px;
+      text-shadow: 0 0 3px #c00;
+      pointer-events: none;
+    }
+
+    .progress-container {
+      position: absolute;
+      top:490px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 861px;
+      height: 44px;
+      background-color: #fff0f5;
+      border: 0px solid #ff69b4;
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 90%;
+      background-color: #ff69b4;
+      transition: width 0.5s ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+      .main-title, .sub-title {
+        max-width: 90%;
+      }
+    }
+
+  .ellipse-button {
+  width: 225px;
+  height: 120px;
+  border-radius: 50%; /* 橢圓形 */
+  border: none;
+  background-color: #b91465;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s;
+  margin: 20px auto;
+  display: block;
+  z-index: 10;
+}
+
+.ellipse-button img {
+  width: 60%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.ellipse-button:active {
+  animation: flash 0.3s ease-in-out;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <img src="code.png/logo.png" alt="Logo" style="width: 163px; height: 93px" class="logo">
+    <div class="social-icons">
+      <a href="https://www.youtube.com/@AoiHinamoriCh" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.facebook.com/AoiHinamori1024" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.instagram.com/aoihinamori_vtuber/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://x.com/AoiHinamori" target="_blank"><i class="fab fa-x"></i></a>
+      <button class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    </div>
+    <div class="menu" id="menu">
+      <a href="#gift">回饋禮包</a>
+      <a href="#plan">方案資訊</a>
+      <a href="#payment">款項說明</a>
+      <a href="#team">工作團隊</a>
+      <a href="#unlock">解鎖回饋</a>
+      <a href="#schedule">進行時程</a>
+    </div>
+  </header>
+
+  <div class="title" style="margin-top: 145px;">
+    <img src="code.png/All of I  .png" alt="主標題" style="width: 854px; height: 156px;">
+    <img src="code.png/Aoi Hinamori 3D化募資計畫.png" alt="副標題" style="width: 925px; height: 61px;">
+    <div style="height: 20vh;"></div>
+    <img src="code.png/目標金額 100萬.png" alt="副二標題" style="width: 1200px; height: 151px;">
+
+  </div>
+      <button class="ellipse-button"  onclick="window.location.href='https://deerdonate.herokuapp.com/donation/AoiHinamori'">
+    <img src="code.png/立刻贊助.png" alt="">
+    </button>
+  <!-- SVG 愛心與百分比 -->
+  <div class="heart-badge">
+    <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10,30
+               A20,20 0 0,1 50,30
+               A20,20 0 0,1 90,30
+               Q90,60 50,90
+               Q10,60 10,30 Z"
+            fill="#b91465" />
+    </svg>
+    <div class="heart-text">90%</div>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" style="width: 90%;"></div>
+  </div>
+
+  <img src="code.png/ALL PH.png" class="floating-img" id="float1" style="top:50px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float2" style="top:1300px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float3" style="top:2700px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float4" style="top:3950px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float5" style="top:5350px; right:-90px;"> 
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float6" style="top:6600px; right:-90px;"> 
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float7" style="top:8000px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float8" style="top:9250px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float9" style="top:10650px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float10" style="top:11900px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float11" style="top:13300px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float12" style="top:14550px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float13" style="top:15950px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float14" style="top:17200px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float15" style="top:18600px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float16" style="top:19850px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float17" style="top:21250px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float18" style="top:22500px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float19" style="top:23900px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float20" style="top:25150px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float21" style="top:26500px; right:-90px;">
+  <img src="code.png/ALL PH2.png" class="floating-img" id="float22" style="top:27800px; right:-90px;">
+  <img src="code.png/ALL PH3.png" class="floating-img" id="float23" style="top:29200px; right:-90px;">
+
+
+
+
+
+
+  <div style="height: 8vh;"></div>
+  <div id="gift" class="content-section"style="text-align: center;">
+    <img src="code.png/content_大標-06.png" alt="1" style="width: 896px; height: 358px;">
+      <div style="display: inline-block; text-align: left; max-width: 896px; margin-top: 20px;">
+        <p style="font-size: 18px; line-height: 1.6;">
+      「你們的心意與付出，都會成為照亮Aoi的光譜」<br>
+      Aoi將全力獻上最精緻的謝禮，作為對所有人的感謝與回饋。<br>
+      本次募資的所有回饋品皆不再復刻。
+        </p>
+      </div>
+      <div style="text-align: left; max-width: 896px; margin: 30px auto auto;">
+        <p style="font-size: 18px; line-height: 1.6;">
+          <hr style="border: none; border-top: 1px solid #000; margin: 20px 0;"><br>  
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣1、雙閃勳章(兩個一組)</span><br>
+        <br>  
+        <b>  「地球只有一個，但這酷酷的東西有兩個！」<br></b>
+           規格：直徑75mm / PVC、金屬<br> 
+        </p>
+        <img src="code.png/雙閃勳章.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣2、透明壓克力簽名板</span><br>
+        <br>  
+        <b>  「高品質的我，高品質的板」<br></b>
+           規格：壓克力金邊 / 24 x 27cm<br> 
+        </p>
+        <img src="code.png/透明壓克力簽名板.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣3、壓克力時鐘</span><br>
+        <br>  
+        <b>  「陪你暖暖每分每秒」<br></b>
+           規格：16.7 x 19.5 cm / 壓克力
+        </p>
+        <img src="code.png/壓克力時鐘.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣4、壓克力無框油畫</span><br>
+        <br>  
+        <b>  「地把最亮麗的色彩封存在此刻」<br></b>
+           規格：20 x 30 cm / 壓克力畫板+無框畫<br> 
+        </p>
+        <img src="code.png/壓克力無框油畫.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣5、火漆章封蠟組</span><br>
+        <br>  
+        <b>  「用濃情的蠟，烙印在心裡」<br></b>
+           規格：30 mm / 金色大罐蠟粒、火漆章與通用木柄、木杓、小蠟燭各1<br> 
+        </p>
+        <img src="code.png/火漆章封蠟組.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣6、鏡面燈框畫</span><br>
+        <br>  
+        <b>  「平時看自己，想我就開燈★」<br></b>
+        <b>   很榮幸邀請到ましろ老師繪製！超漂亮！<br></b>
+           規格：17 x 12 x 3.5 cm <br> 
+        </p>
+        <img src="code.png/鏡面燈框畫.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣7、超大掛軸</span><br>
+        <br>  
+        <b>  「超大超漂亮，天天在一起」<br></b>
+        <b>   把ましろ老師繪製的Aoi掛在家裡吧！<br></b>
+           規格：W60 x H90 cm<br> 
+        </p>
+        <img src="code.png/超大掛軸.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣8、落肩帽T</span><br>
+        <br>  
+        <b>  「胸口一束花，再冷都不怕」<br></b>
+           規格：M、L、XL（落肩款式尺寸都偏大唷）<br> 
+        </p>
+        <img src="code.png/落肩帽T.png" alt="1" style="width: 896px; height: 896px;">
+        <img src="code.png/帽T尺寸.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣9、棉花娃&娃衣</span><br>
+        <br>  
+        <b>  「Aoi本體，快來養我!」<br></b>
+           規格：20cm<br> 
+        </p>
+        <img src="code.png/棉花娃&娃衣.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣10、燙金典藏筆記本</span><br>
+        <br>  
+        <b>  「紀錄我們的點點滴滴，筆記本還是活頁的喔!」<br></b>
+           規格：A5 / PU材質<br> 
+        </p>
+        <img src="code.png/燙金典藏筆記本.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣11、燙金皮革錢包</span><br>
+        <br>  
+        <b>  「時尚在前進，皮夾要燙金」<br></b>
+           規格：頭層真皮短夾、手工縫紉製作<br> 
+        </p>
+        <img src="code.png/燙金皮革錢包.png" alt="1" style="width: 896px; height: 896px;">
+
+        <br>  
+        <span style="color: rgb(230, 133, 191);">🐣12、行李箱</span><br>
+        <br>  
+        <b>  「一起出去玩，一起去看海」<br></b>
+           規格：20吋行李箱（超級好拉的行李箱）<br> 
+        </p>
+        <img src="code.png/行李箱.png" alt="1" style="width: 896px; height: 896px;">
+    </div> 
+  </div>
+
+  <div id="plan" class="content-section">
+    <img src="code.png/方案.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/方案2.png" alt="1" style="width: 896px; height: 1345px;">
+  </div>
+  <div id="payment" class="content-section">
+    <img src="code.png/款項.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/款項2.png" alt="1" style="width: 896px; height: 897px;">
+  </div>
+  <div id="team" class="content-section">
+    <img src="code.png/團隊.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/團1.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/團2.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/團3.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/團4.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/團5.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/團6.png" alt="1" style="width: 896px; height: 358px;">
+  </div>
+  <div id="unlock" class="content-section">
+    <img src="code.png/回饋.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/回饋2.png" alt="1" style="width: 896px; height: 896px;">
+    <div style="text-align: left; max-width: 896px; margin: 30px auto auto;">
+      <p style="font-size: 25px; line-height: 1.6;">
+        <span style="background-color: #d5418d;">🐣募☆資☆啟☆動☆</span>
+          <p style="font-size: 18px; line-height: 1.6;">
+          這一路上有太多不容易，從雛形到今天，每一步腳印，都是咬著牙擠出來的心血。<br>
+          為了不讓患者失望，Aoi會拚盡所能的一切！<br>
+          不求遙不可及的目標，只想給你們最好！只要<b>目標破兩百萬Aoi就跳舞</b>給你們看！<br>
+          來啦！ 肢障沒在怕！
+          </p>
+    </p>  
+     <p style="font-size: 25px; line-height: 1.6;">
+      <span style="background-color: #d5418d;">🐣三百萬－小蠻腰現場演唱 </span>
+        <p style="font-size: 18px; line-height: 1.6;">
+          去拔旗吧！我就把旗插在那裡！<br>
+          達標的話，除了唱小蠻腰以外、還會找老師為小蠻腰編舞。
+        </p>
+     </p>
+    </div>
+  </div>
+  <div id="schedule" class="content-section">
+    <img src="code.png/時程.png" alt="1" style="width: 896px; height: 358px;">
+    <img src="code.png/時程2.png" alt="1" style="width: 896px; height: 897px;">
+  </div>
+
+  <div id="backToTop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">↑</div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      document.getElementById('float1').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float2').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float3').style.transform = `translateY(-${scrollY * 0.3}px)`;  
+      document.getElementById('float4').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float5').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float6').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float7').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float8').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float9').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float10').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float11').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float12').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float13').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float14').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float15').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float16').style.transform = `translateY(-${scrollY * 0.3}px)`; 
+      document.getElementById('float17').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float18').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float19').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float20').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float21').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float22').style.transform = `translateY(-${scrollY * 0.3}px)`;
+      document.getElementById('float23').style.transform = `translateY(-${scrollY * 0.3}px)`;
+    });
+
+  </script>
+</body>
+</html>
+
